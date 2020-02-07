@@ -22,7 +22,7 @@ numwrit		qword	?
 
 .code
 mainCRTStartup	PROC
-				sub	rsp, 40				;reserve shadow space
+				sub	rsp, 40			;reserve shadow space
 				
 				move rcx, CONSOLE		;Win handle
 				call GetStdHandle		;empty
@@ -30,13 +30,13 @@ mainCRTStartup	PROC
 
 				mov rcx, stdout			;parm 1(handle)
 				lea rdx, hello			;parm 2(string)
-				mov rdx, offset hello   ;address 
-				mov r8, lengthof hello  ;bytes requested. sending the number of characters
-				lea r9, numwrit		    ;bytes written
+				mov rdx, offset hello   	;address 
+				mov r8, lengthof hello  	;bytes requested. sending the number of characters
+				lea r9, numwrit		 	;bytes written
 				call WriteConsoleA		
 
-				add rsp, 40				;release shadow space
-				mov rcx, 0				;return 0 = OK
+				add rsp, 40			;release shadow space
+				mov rcx, 0			;return 0 = OK
 				call ExitProcess		
 
 mainCRTStartup	ENDP
