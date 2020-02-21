@@ -30,7 +30,7 @@ numRead		qword	?	;number of bytes actually read
 mainCRTStartup	PROC
 
 		;intialize the program
-		sub			rsp,40		;reserve shadow space
+		sub			rsp,40		;reserve shadow spacee
 
 		;get handle ID to console window & keyboard
 		mov		rcx, CONSOLE	;/subsystem:console
