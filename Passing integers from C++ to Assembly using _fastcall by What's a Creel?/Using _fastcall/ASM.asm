@@ -1,9 +1,9 @@
 .code
 PassingParameters   PROC
-      mov   eax, ecx      ;Assume ecx is smaller
-      cmp   edx, eax      ;compared eax to edx
-      jg    ReturnEAX
-      
+      mov   ax,cx    
+      add   ax,dx     
+      add   ax,r8w
+      add   ax,r9w
       mov   eax, edx
       ret
       
