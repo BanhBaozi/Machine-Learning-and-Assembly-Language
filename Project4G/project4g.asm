@@ -67,6 +67,3 @@ Continue:
 CompareStrings	ENDP
 END
 
-Enter string1: quick brown fox
-Enter string2: not quick brown fox
-Strings are equal
