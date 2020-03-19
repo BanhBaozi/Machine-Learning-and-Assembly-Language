@@ -1,0 +1,73 @@
+comment~
+Author: Jenny Nguyen
+Project: Project5A
+Description: User name prompt
+~
+extrn ExitProcess:		 PROTO
+extrn ReadFile:			 PROTO
+extrn WriteFile:		 PROTO
+extrn GetStdHandle:		 PROTO
+
+
+mGetHandles		MACRO
+				CONSOLE		equ		-11				;hard code for console
+				KEYBOARD	equ		-10				;hard code for keyboard
+				
+				mov		rcx, CONSOLE				;/subsystem:console
+				call	GetStdHandle				;handle in rax
+				mov		stdout, rax					;save out handle
+				mov		rcx, KEYBOARD				;keyboard code
+				call	GetStdHandle				;handle in rax
+				mov		stdin, rax					;save in handle
+ENDM
+
+mWriteFile		MACRO		parm2
+					mov rcx, stdout					;parm1 = console handle
+					lea rdx, parm2					;parm2 = ascii message	
+					lea	r8,lengthof parm2			;store lengthof input
+					lea	r9,numRead					;#of bits actually written
+					mov	qword ptr[rsp+32],0			;next parm=0 (unused)
+					call WriteFile
+ENDM
+
+mReadFile		MACRO		parm1
+					mov rcx, stdin			;get keyboard handle
+					lea rdx, parm1			;parm1 = ascii buffer
+					mov r8, lengthof parm1	;get the length of user input
+					lea	r9, numRead			;#bits actually written
+					call ReadFile			;get keystrokes
+ENDM		
+
+.data
+stdin			qword	?
+stdout			qword	?
+numWrite		qword	?
+numRead			qword	?
+nameprompt		byte	'What is your name?'
+addressprompt	byte	'What is your address?'
+greeting		byte	'Nice to meet you, ' 0ah
+myname			byte	40 dup(0),0dh
+myaddress		byte	40 dup(0)
+
+.data?	
+
+.code
+mainCRTStartup	PROC
+					sub		rsp, 32					;reserve 32-bits of shadow space
+					push	rbp						;save the base ptr
+					mov		rbp, rsp				;frame ptr for direct access
+
+					mGetHandles						;macro insertion for handles for input and output
+					mWriteFile	nameprompt			;	
+					mReadFile	myname				;
+					mWriteFile	addressprompt		;
+					mReadFile	myaddress			;
+					mWriteFile	greeting			;
+					mWriteFile	myname				;
+					mWriteFile	myaddress			;
+
+					pop		rbp						;
+					add		rsp, 32					;
+					call	ExitProcess				;
+mainCRTStartup  ENDP
+END
