@@ -1,7 +1,9 @@
 comment~
 Author: Jenny Nguyen
 Project: Project5C
-Description: Loop
+Description: Array matrix calculation.
+Store the addition of 2 arrays in a third array
+using multithreading
 ~
 
 extrn		DisplayMemory:			PROTO
