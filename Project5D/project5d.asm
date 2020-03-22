@@ -1,6 +1,6 @@
 comment~
 Author: Jenny Nguyen
-Project: Project4A
+Project: Project4C
 Description: Loop
 ~
 
@@ -18,7 +18,7 @@ extrn		ExitProcess:			PROTO
 
 arr1	 byte	 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
 arr2	 byte	 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
-arr3	 byte	 ?
+arr3	 byte	 20 dup(?)
 id		 qword	 0
 tHandle	 qword	 0
 
@@ -92,9 +92,13 @@ secondhalf:
 			inc		r10b							 ;move up to next byte to store for arr3
 			loop	secondhalf						 ;loop array until counter
 	
-			call	ExitThread          ;exit the thread
+			call	ExitThread						;exit the thread
 
 myThread		ENDP
 
 
 END
+
+
+output:
+03 05 07 09 0b 0d 0f 11 13 15 17 19 1b 1d 1f 21 23 25 27 29
