@@ -1,0 +1,140 @@
+CD C:\MASM
+
+ml64 /c Listing6-1A.asm  Listing6-1B.asm  Listing6-1C.asm
+
+LINK /out:myApp.exe Listing6-1A.obj Listing6-1B.obj Listing6-1C.obj kernel32.lib /entry:mainCRTStartup /subsystem:console
+
+cl /FemyApp.exe Listing6-1A.obj IO.obj kernel32.lib
+
+myApp.exe
+
+LIB /OUT:IOAPI.lib /verbose Listing6-1B.obj Listing6-1C.obj 
+
+DUMPBIN /SYMBOLS /RELOCATIONS IOAPI.lib
+
+ml64 /c Listing6-1A.asm 
+
+LINK /out:api2.exe Listing6-1A.obj IOAPI.lib kernel32.lib  /entry:mainCRTStartup /subsystem:console
+
+api2.exe
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+**********************************************************************
+** Visual Studio 2019 Developer Command Prompt v16.5.1
+** Copyright (c) 2019 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community>cd c:\masm
+
+c:\MASM>ml64 /c Listing6-1A.asm  Listing6-1B.asm  Listing6-1C.asm
+Microsoft (R) Macro Assembler (x64) Version 14.25.28611.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+ Assembling: Listing6-1A.asm
+ Assembling: Listing6-1B.asm
+ Assembling: Listing6-1C.asm
+
+c:\MASM>LINK /out:myApp.exe Listing6-1A.obj Listing6-1B.obj Listing6-1C.obj kernel32.lib /entry:mainCRTStartup /subsystem:console
+Microsoft (R) Incremental Linker Version 14.25.28611.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+c:\MASM>myApp.exe
+Please enter some text:  this is a test
+You typed: this is a test
+                                                                                                                                                                                                                                                
+c:\MASM>LIB /OUT:IOAPI.lib /verbose Listing6-1B.obj Listing6-1C.obj
+Microsoft (R) Library Manager Version 14.25.28611.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+Appending Listing6-1C.obj
+Appending Listing6-1B.obj
+
+c:\MASM>DUMPBIN /SYMBOLS /RELOCATIONS IOAPI.lib
+Microsoft (R) COFF/PE Dumper Version 14.25.28611.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file IOAPI.lib
+
+File Type: LIBRARY
+
+RELOCATIONS #1
+                                                Symbol    Symbol
+ Offset    Type              Applied To         Index     Name
+ --------  ----------------  -----------------  --------  ------
+ 0000000C  REL32                      00000000         A  GetStdHandle
+ 0000001C  REL32                      00000000         C  numWrite
+ 00000021  REL32                      00000000         B  WriteConsoleA
+
+COFF SYMBOL TABLE
+000 01036FC3 ABS    notype       Static       | @comp.id
+001 00000010 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .text$mn
+    Section length   2A, #relocs    3, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .data
+    Section length    0, #relocs    0, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .bss
+    Section length    8, #relocs    0, #linenums    0, checksum        0
+008 00000000 SECT4  notype       Static       | .debug$S
+    Section length   68, #relocs    0, #linenums    0, checksum        0
+00A 00000000 UNDEF  notype ()    External     | GetStdHandle
+00B 00000000 UNDEF  notype ()    External     | WriteConsoleA
+00C 00000000 SECT3  notype       Static       | numWrite
+00D 00000000 SECT1  notype ()    External     | OpenCon
+00E 00000015 SECT1  notype ()    External     | WriteCon
+
+String Table Size = 0x1F bytes
+
+RELOCATIONS #1
+                                                Symbol    Symbol
+ Offset    Type              Applied To         Index     Name
+ --------  ----------------  -----------------  --------  ------
+ 0000000C  REL32                      00000000         A  GetStdHandle
+ 0000001C  REL32                      00000000         C  numRead
+ 00000021  REL32                      00000000         B  ReadConsoleA
+
+COFF SYMBOL TABLE
+000 01036FC3 ABS    notype       Static       | @comp.id
+001 00000010 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .text$mn
+    Section length   2A, #relocs    3, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .data
+    Section length    0, #relocs    0, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .bss
+    Section length    8, #relocs    0, #linenums    0, checksum        0
+008 00000000 SECT4  notype       Static       | .debug$S
+    Section length   68, #relocs    0, #linenums    0, checksum        0
+00A 00000000 UNDEF  notype ()    External     | GetStdHandle
+00B 00000000 UNDEF  notype ()    External     | ReadConsoleA
+00C 00000000 SECT3  notype       Static       | numRead
+00D 00000000 SECT1  notype ()    External     | OpenKey
+00E 00000015 SECT1  notype ()    External     | ReadKey
+
+String Table Size = 0x1E bytes
+
+  Summary
+
+          10 .bss
+           0 .data
+          D0 .debug$S
+          54 .text$mn
+
+c:\MASM>ml64 /c Listing6-1A.asm
+Microsoft (R) Macro Assembler (x64) Version 14.25.28611.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+ Assembling: Listing6-1A.asm
+
+c:\MASM>LINK /out:api2.exe Listing6-1A.obj IOAPI.lib kernel32.lib  /entry:mainCRTStartup /subsystem:console
+Microsoft (R) Incremental Linker Version 14.25.28611.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+c:\MASM>api2.exe
+Please enter some text:  sdf sdfs sdfsdf
+You typed: sdf sdfs sdfsdf
+                                                                                                                        
+c:\MASM>
+
